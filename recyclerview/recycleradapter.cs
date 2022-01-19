@@ -16,7 +16,8 @@ namespace recyclerview
     {
          
         Context con;
-        
+        private readonly string[] spaceCrafts;
+        public event EventHandler<int> itemClick;
         public List<string> employeenames;
 
         public recycleradapter(List<string> employeenames,Context context)
@@ -38,9 +39,11 @@ namespace recyclerview
 
             vh.textView.Text = employeenames[position].ToString();
             vh.textView.Click += delegate {
-                Toast.MakeText(con, ""+employeenames[position], ToastLength.Long).Show();
+                Toast.MakeText(con, "message", ToastLength.Long).Show();
             };
         }
+
+      
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
@@ -49,22 +52,22 @@ namespace recyclerview
             MyViewHolder vh = new MyViewHolder(itemView);
             return vh;
         }
+
+        
+
         public class MyViewHolder : RecyclerView.ViewHolder 
         {
             private readonly Action<int> listener;
             public TextView textView;
-            public MyViewHolder(View itemView , Action<int> listener ) : base(itemView)
+            public MyViewHolder(View itemView ) : base(itemView)
             {
                    
                 textView = itemView.FindViewById<TextView>(Resource.Id.textitem);
-                this.listener = listener;
-                itemView.Click += ItemView_Click;
+                
+            
             }
 
-            private void ItemView_Click(object sender, EventArgs e)
-            {
-                listener(LayoutPosition);
-            }
+            
         }
 
     }
